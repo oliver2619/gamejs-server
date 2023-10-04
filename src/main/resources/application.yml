@@ -1,0 +1,7 @@
+gamejs:
+  lobby:
+    maximum: 10   # maximum number of lobbies
+  session:
+    maximum: 5    # maximum number of sessions
+  player:
+    maximum: 20   # maximum number of players per session

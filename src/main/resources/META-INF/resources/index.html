@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>gamejs-server</title>
+        <style>
+            body {
+                margin: 0;
+                font-family: sans-serif;
+            }
+            button {
+                padding: 2em;
+                font-size: 20pt;
+            }
+        </style>
+        <script>
+
+            let ws;
+
+            setTimeout(init, 1);
+
+            function fn1() {
+                fetch('http://localhost:8080/hello', {method: 'GET'}).then(response => {
+                    if(response.ok) {
+                        return response.text();
+                    }
+                }).then(msg => console.log(msg));
+            }
+
+            function init() {
+                ws = new WebSocket('ws://localhost:8080/game/player', ['gamejs']);
+                ws.onopen = (event) => ws.send('Hello ws');
+                ws.onmessage = (event) => console.log(event.data);
+            }
+
+            function fn2() {
+                ws.send('Hello ws2');
+            }
+        </script>
+    </head>
+    <body>
+        <button type="button" onclick="fn1()">fn1</button>
+        <button type="button" onclick="fn2()">fn2</button>
+    </body>
+</html>
